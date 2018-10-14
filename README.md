@@ -1,5 +1,5 @@
 # Vibrosight
-UIST Submission 1138. This repository contains source files for the project Vibrosight.  
+This repository contains source files for the project Vibrosight. The research publication and more details of this project can be found here: http://yang-zhang.me/research/Vibrosight/Vibrosight.html
 
 ## Usage
 
