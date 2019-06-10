@@ -46,7 +46,7 @@ byte commands[] = {0x00, 0x00, 0x00, 0x00, 0x00};
 byte positionReady[] = {0x00, 0x00, 0x00}; 
 
 // Tune this delay to change ADC sampling rate
-int delayADCMicros = 200; 
+int delayADCMicros = 500; 
 
 // ADC buffer parameters
 #define RAW_SIZE 256
@@ -96,7 +96,7 @@ void setup() {
   Wire.begin(); 
   Wire.beginTransmission(POT_ADDR);
   Wire.send(0x0);
-  Wire.send(0x7f); // AFE Gain 100
+  Wire.send(0x50); // AFE Gain 100
   Wire.endTransmission();
 
   // Laser toggle control setting

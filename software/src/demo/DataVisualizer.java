@@ -41,7 +41,8 @@ public class DataVisualizer extends PApplet{
 	
 	@Override
 	public void settings() {
-		size(1024, 700, P3D);
+		//size(1024, 700, P3D);
+		fullScreen();
 	}
 
 	@Override
