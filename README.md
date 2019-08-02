@@ -1,5 +1,5 @@
 # Vibrosight
-This repository contains source files for the project Vibrosight. The research publication and more details of this project can be found here: http://yang-zhang.me/research/Vibrosight/Vibrosight.html
+This repository contains source files for the project Vibrosight. The research publication and more details of this project can be found here: https://yangzhang.dev/research/Vibrosight/Vibrosight.pdf
 
 ## Usage
 
@@ -27,4 +27,7 @@ A real-time visualzer that visualize data streamed from the sensor board:
 The 3D prints folder contains the model design files for the mirror-control platform:
 
 <img src="./images/models.png" align="Mirror-control platform models" width="400" >
+
+## Known issues
+The software was tested on MacBook (MacOS 10.14.5). For window systems the sensor board will enumerate with different names, which need to be updated in ./software/src/serial/SerialReader.java (line 28).
 
