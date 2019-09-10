@@ -63,20 +63,6 @@ ADC *adc = new ADC();
 const int readPin = A2;
 long t = 0;
 
-// Helper functions from ADC_Module.h 
-#define ADC_BITBAND_ADDR(reg, bit) (((uint32_t)(reg) - 0x40000000) * 32 + (bit) * 4 + 0x42000000)
-__attribute__((always_inline)) static void setBit(volatile uint32_t* reg, uint8_t bit) {
-    (*(uint32_t *)ADC_BITBAND_ADDR((reg), (bit))) = 1;
-}
-__attribute__((always_inline)) static void clearBit(volatile uint32_t* reg, uint8_t bit) {
-    (*(uint32_t *)ADC_BITBAND_ADDR((reg), (bit))) = 0;
-}
-__attribute__((always_inline)) static void changeBit(volatile uint32_t* reg, uint8_t bit, bool state) {
-    (*(uint32_t *)ADC_BITBAND_ADDR((reg), (bit))) = state;
-}
-__attribute__((always_inline)) volatile bool getBit(volatile uint32_t* reg, uint8_t bit) {
-        return (volatile bool)*(uint32_t*)(ADC_BITBAND_ADDR(reg, bit));
-}
 
 void setup() {
   pinMode(readPin, INPUT);
@@ -86,8 +72,8 @@ void setup() {
   adc->setResolution(12); // 8, 10, 12, 16
   adc->setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED);
   adc->setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED);
-  clearBit(&ADC0_CFG1, ADC_CFG1_ADICLK1_BIT);
-  clearBit(&ADC0_CFG1, ADC_CFG1_ADICLK0_BIT);
+  //clearBit(&ADC0_CFG1, ADC_CFG1_ADICLK1_BIT);
+  //clearBit(&ADC0_CFG1, ADC_CFG1_ADICLK0_BIT);
   adc->startContinuous(readPin, ADC_0);    
   adc->analogReadContinuous(ADC_0);
   Serial.begin(baudrate);
@@ -222,13 +208,17 @@ void sendRawData() {
   if(delayed < delayADCMicros){
     delayMicroseconds(delayADCMicros - delayed);
   }
-   
+
+
+  while(!adc->isComplete(0)) // dump the old measurement
+       ;
+       
   for (int i = 0; i < RAW_SIZE; i++) {
       
         /* check before read */
-        while(!getBit(&ADC0_SC1A, ADC_SC1A_COCO_BIT))
+        while(!adc->isComplete(0))
           ;
-        input[i] = ADC0_RA;  
+        input[i] = adc->analogReadContinuous(); 
         
         if(i!= RAW_SIZE - 1){
           delayMicroseconds(delayADCMicros);
@@ -388,4 +378,3 @@ void SetDirectionY(){
   if(StepsY>7){StepsY=0;}
   if(StepsY<0){StepsY=7;}
 }
-
