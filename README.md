@@ -1,6 +1,8 @@
 # Vibrosight
 This repository contains source files for the project Vibrosight. The research publication and more details of this project can be found here: https://yangzhang.dev/research/Vibrosight/Vibrosight.pdf
 
+Project video can be found here: https://youtu.be/51XaZDki6yg
+
 ## Usage
 
 We uploaded all data collected in the evaluation session and wrote a visualizer to render the data offline. To run the visualizer, please download the repository and execute the pre-compiled visualizer code (i.e., ./data and visualizer/visualizer.jar). 
